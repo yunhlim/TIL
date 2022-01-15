@@ -217,7 +217,7 @@
 
      Git 로고입니다.
 
-     ![git로고](day1_markdown.assets/logo@2x.png)
+     ![git로고](markdown_ex.assets/logo@2x.png)
 
 7. 인용 (Blockquote)
 
