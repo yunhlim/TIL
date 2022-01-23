@@ -1,4 +1,4 @@
-# [Python] 문자열 포맷팅, Escape sequence
+# [Python] 문자열 응용
 
 ## 문자열 표시 방법[Escape sequence]
 
@@ -50,3 +50,21 @@ print('안녕 {0}야'.format(name)) # format 함수
 %-formatting은 문자열에는 %s를 쓰고, 정수에는 %d, 실수에는 %f를 사용
 
 str.format()은 {0}, {1}, {2},... 순으로 들어간다.
+
+---
+
+---
+
+## join(), split()
+
+**'구분자'.join(문자열로 이루어진 iterable 객체)**: 문자열로 이루어진 iterable 객체를 구분자를 중간에 삽입해 하나의 문자열로 합쳐준다. 이때 구분자가 없으면 그대로 붙여준다.
+
+**'문자열'.split(sep='구분자', maxsplit=분할횟수)**: 기준문자열로 구분하여 나누어서 각각 문자열을 담은 리스트로 반환한다. 띄어쓰기로 구분하려면 `.split()`이라고만 쓰면 된다.
+
+```python
+a= '참 새'.split()
+print(a)    # => ['참', '새']
+b=''.join(a)
+print(b)    # => 참새
+```
+
