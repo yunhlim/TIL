@@ -294,3 +294,22 @@
      ***
      ___
 
+10. 윗첨자(superscript), 아래첨자(subscript)
+
+    - 윗첨자 `<sup>text</sup>`
+
+    - 아래첨자 `<sub>text</sub>`
+
+    - 작성
+
+      ```
+      a<sup>text</sup>
+      b<sub>text</sub>
+      ```
+
+    - 결과
+
+      a<sup>text</sup>
+
+      b<sub>text</sub>
+
