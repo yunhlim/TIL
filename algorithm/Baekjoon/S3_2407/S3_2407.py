@@ -39,7 +39,7 @@ for i in range(2, m+1): # 분모의 소수를 순서대로 가져와서 분자�
                 up_lst[j] = up_lst[j] // i
                 sosu_cnt_lst[i] -= 1
 
-for num in up_lst:
+for num in up_lst:  # 다 나눈 수를 곱한다.
     result *= num
 
 print(result)
