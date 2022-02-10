@@ -11,5 +11,5 @@ for i in range(2, N+1): # 소인수는 2부터 나누며 구한다.
         mok //= i   # 나누어서 수를 줄인다.
         print(i)
 
-if mok != 1:
-    print(mok)
+if mok != 1:    # 소인수가 나와서 1인 경우나, 입력이 1인 경우 
+    print(mok)  # 제곱근보다 큰 소인수가 있는 경우 출력
