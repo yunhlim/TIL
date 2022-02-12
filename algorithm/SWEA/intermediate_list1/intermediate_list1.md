@@ -2,15 +2,15 @@
 
 ## 4828. [파이썬 S/W 문제해결 기본] 1일차 - min max [D2]
 
-문제 : https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do
+### 📚 문제 
+
+https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do
 
 ---
 
 max와 min 값을 주어진 수의 첫번째 수로 초기화 시키고 for문에 넣어 if elif로 처리한다.
 
----
-
-코드:
+### 📒 코드
 
 ```python
 T = int(input()) 
@@ -29,9 +29,7 @@ for tc in range(1, T+1):
     print(f'#{tc} {max_num - min_num}')
 ```
 
----
-
-결과: **Pass**
+### 🔍 결과: **Pass**
 
 ---
 
@@ -39,7 +37,9 @@ for tc in range(1, T+1):
 
 ## 4831. [파이썬 S/W 문제해결 기본] 1일차 - 전기버스 [D3]
 
-문제: https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do
+### 📚 문제
+
+https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do
 
 ---
 
@@ -51,9 +51,7 @@ for tc in range(1, T+1):
 
 이동할 충전기가 없으면 0을 출력한다.
 
----
-
-코드:
+### 📒 코드
 
 ```python
 T = int(input())
@@ -81,9 +79,7 @@ for tc in range(1, T+1):
     print(f'#{tc} {cnt}')
 ```
 
----
-
-결과: **Pass**
+### 🔍 결과 : **Pass**
 
 ---
 
@@ -91,15 +87,15 @@ for tc in range(1, T+1):
 
 ## 4834. [파이썬 S/W 문제해결 기본] 1일차 - 숫자 카드 [D2]
 
-문제: https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do
+### 📚 문제
+
+https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do
 
 ---
 
 count 배열을 만들어 0으로 초기화한다.  0 ~ 9 까지의 index 중 나오는 카드마다 1을 올려준다.
 
----
-
-코드:
+### 📒 코드
 
 ```python
 T = int(input())
@@ -122,9 +118,7 @@ for tc in range(1, T+1):
     print(f'#{tc} {many_card_num} {many_card_cnt}')
 ```
 
----
-
-결과: **Pass**
+### 🔍 결과: **Pass**
 
 ---
 
@@ -132,7 +126,9 @@ for tc in range(1, T+1):
 
 ## 4835. [파이썬 S/W 문제해결 기본] 1일차 - 구간합 [D2]
 
-문제: https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do
+### 📚 문제
+
+https://swexpertacademy.com/main/learn/course/lectureProblemViewer.do
 
 ---
 
@@ -142,9 +138,7 @@ M개를 먼저 앞에서부터 더한다. queue를 응용해 앞에 하나씩 �
 
 그리고 for문을 돌며 하나 더하고 하나 빼주는 걸 반복하며 max와 min을 바꾸어준다.
 
----
-
-코드:
+### 📒 코드
 
 ```python
 T = int(input())
@@ -171,6 +165,4 @@ for tc in range(1, T+1):
     print(f'#{tc} {max_sum - min_sum}')
 ```
 
----
-
-결과: **Pass**
+### 🔍 결과: **Pass**
