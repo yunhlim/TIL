@@ -22,7 +22,7 @@ https://swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AV1
 
 max와 min의 차이가 0 or 1이 되면 평탄화가 완료된다고 하니 최대, 최소의 차이가 2미만일 때 반복문을 그만두는 조건을 평탄화 하기 전에 추가한다.
 
-## 📒 코드
+## 📒 Fail 코드
 
 ```python
 T = 10
@@ -102,3 +102,43 @@ for tc in range(1, T+1):
 ```
 
 ## 🔍 결과 : **Pass**
+
+---
+
+for문을 중첩으로 돌리지 않고 해결하기 위해 index는 height이고 값은 박스의 개수인 리스트를 만들어서 해결한다. 가장 높은 곳과 낮은 곳이 어디에 있는지 중요하지 않으므로 이렇게 해결해본다.
+
+## 📒 수정한 코드
+
+```python
+T = 10
+for tc in range(1, T+1):
+    N = int(input())    # 덤프 횟수
+    boxes = list(map(int, input().split()))   # 박스를 담은 list
+    height_cnt = [0 for _ in range(101)]    # 박스 높이의 개수를 담은 list
+    max_height = 0
+    min_height = 101
+    for box in boxes: # 박스 높이에 대한 개수가 몇 개 있는지 넣어준다.
+        height_cnt[box] += 1
+        if box > max_height:
+            max_height = box
+        if box < min_height:
+            min_height = box
+
+    for _ in range(N):  # 평탄화 시작
+        if max_height - min_height < 2:   # min, max 차이가 2 이하면 평탄화 작업 중단
+            break
+        height_cnt[max_height] -= 1       # 평탄화 작업
+        height_cnt[max_height-1] += 1
+        height_cnt[min_height] -= 1
+        height_cnt[min_height+1] += 1
+        if height_cnt[max_height] == 0:
+            max_height -= 1
+        if height_cnt[min_height] == 0:
+            min_height += 1
+
+    print(f'#{tc} {max_height - min_height}')
+```
+
+## 🔍 결과 : **Pass**
+
+박스가 놓여진 위치는 중요하지않고 높이와 그 높이에 대한 개수가 중요하다. 그러면 더 깔끔하게 해결할 수 있다.
