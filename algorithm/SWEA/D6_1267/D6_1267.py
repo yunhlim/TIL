@@ -24,14 +24,17 @@ for tc in range(1, 1+T):
                 for now in nows:
                     for k in range(1, V+1):
                         if arr[now][k] and visited[k] == 0:   # 방향선을 받는 새로운 정점
-                            visited[k] = 1
-                            result.append(k)
-                            new_nows.append(k)
+                            for l in range(1, V+1):
+                                if arr[l][k] and visited[l] == 0:
+                                    break
+                            else:
+                                visited[k] = 1
+                                result.append(k)
+                                new_nows.append(k)
                 nows = new_nows[:]
         if len(result) == V:
             break
     print(f'#{tc} ', end='')
     print(*result)
-
 
             
