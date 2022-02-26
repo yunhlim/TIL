@@ -25,7 +25,7 @@ while True:
 
 ---
 
-while문으로 계속 반복해주고 try catch를 활용해 종료시켜준다..
+while문으로 계속 반복해주고 try except를 활용해 종료시켜준다..
 
 ## 📒 코드
 
@@ -41,4 +41,4 @@ while True:
 
 ![image-20220226234818989](README.assets/image-20220226234818989.png)
 
-파이썬은 종료조건 없는 문제는 try catch를 활용해 종료시킨다!
+파이썬은 종료조건 없는 문제는 try except를 활용해 종료시킨다!
