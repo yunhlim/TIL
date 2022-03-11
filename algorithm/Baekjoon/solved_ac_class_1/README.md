@@ -145,3 +145,10 @@ print(A*B)
 print(ord(input()))
 ```
 
+## 10950. A+B - 3 [B3]
+
+```python
+for _ in range(int(input())):
+    print(sum(map(int, input().split())))
+```
+
