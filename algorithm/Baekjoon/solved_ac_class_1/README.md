@@ -152,3 +152,12 @@ for _ in range(int(input())):
     print(sum(map(int, input().split())))
 ```
 
+## 10952. A+B - 5 [B3]
+
+```python
+while True:
+    a, b = map(int, input().split())
+    if a == 0:
+        break
+    print(a + b)
+```
