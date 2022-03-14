@@ -161,3 +161,93 @@ while True:
         break
     print(a + b)
 ```
+
+## 2562. 최댓값 [B2]
+
+```python
+arr = [0] + [int(input()) for _ in range(9)]
+max_cnt = 0
+for i in range(1, 10):
+    if arr[i] > arr[max_cnt]:
+        max_cnt = i
+print(arr[max_cnt], max_cnt)
+```
+
+## 2675. 문자열 반복 [B2]
+
+```python
+import sys
+input = sys.stdin.readline	# 입력이 많아 readline으로 바꿔준다.
+
+t = int(input().rstrip())
+for _ in range(t):
+    n, string = input().split()
+    n = int(n)
+    result = ''
+    for c in string:		# string을 순회하며 글자 하나씩 가져온다.
+        result += c * n		# string 연산자를 활용해 글자를 곱해서 더해준다.
+    print(result)
+```
+
+## 2739. 구구단 [B3]
+
+```python
+n = int(input())
+for i in range(1, 10):
+    print(f'{n} * {i} = {n * i}')
+```
+
+## 2920. 음계 [B2]
+
+```python
+arr = list(map(int, input().split()))
+asc = [i + 1 for i in range(8)]	# 1부터 8까지 순서대로
+desc = asc[::-1]	# 슬라이싱으로 뒤집어준다.
+if arr == asc:
+    print('ascending')
+elif arr == desc:
+    print('descending')
+else:
+    print('mixed')
+```
+
+## 8958. OX 퀴즈 [B2]
+
+```python
+t = int(input())
+for _ in range(t):
+    arr = list(input())
+    cnt = 0
+    result = 0
+    for ox in arr:
+        if ox == 'O':
+            cnt += 1	# O가 나오면 cnt += 1
+            result += cnt	# result에 cnt를 더한다.
+        else:	# X가 나오면 cnt 초기화
+            cnt = 0
+    print(result)
+```
+
+## 10818. 최소 최대 [B3]
+
+```python
+n = int(input())
+arr = list(map(int, input().split()))
+small = arr[0]
+big = arr[0]
+for num in arr:
+    if num > big:
+        big = num
+    elif num < small:
+        small = num
+print(small, big)
+```
+
+## 11720. 숫자의 합 [B2]
+
+```python
+n = int(input())
+arr = list(map(int, input()))
+print(sum(arr))
+```
+
