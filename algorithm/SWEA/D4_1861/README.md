@@ -88,4 +88,56 @@ for tc in range(1, t + 1):
 
 ```
 
-## 🔍 결과 : Pass
+## 🔍 결과
+
+![image-20220317092727105](README.assets/image-20220317092727105.png)
+
+---
+
+좀 더 간단한 방법으로 생각해보자.
+
+2차원 배열을 방 번호로 정렬한 1차원 배열로 변경한다.
+
+방 번호로 배열을 만들고 좌표를 넣어준다.
+
+그리고 방 번호 순서대로 좌표의 거리 차이가 1인지 확인한다.
+
+1번 방부터 다음 방과의 거리를 확인하면서 차이가 1이면 cnt를 1씩 증가시킨다. 
+
+그리고 차이가 1보다 크면 최대 이동 횟수와 비교하여 갱신해준다.
+
+cnt가 1인 경우 시작점을 표시해 방번호를 기억해놓는다.
+
+## 📒 코드
+
+```python
+t = int(input())
+for tc in range(1, t + 1):
+    n = int(input())
+    arr = [list(map(int, input().split())) for _ in range(n)]
+    room_arr = [[-1, -1] for _ in range(n * n + 2)]   # 방 번호 배열, 앞 뒤로 패딩을 넣어준다.(앞 패딩은 방번호가 1부터 시작)
+
+    for i in range(n):      # 방 번호 배열에 좌표를 담는다.
+        for j in range(n):
+            room_arr[arr[i][j]] = [i, j]
+
+    room = 0        # 방 번호
+    max_cnt = 0     # 이동 횟수
+    cnt = 1         # 현재 이동 횟수
+    for i in range(1, n * n + 1):   # 마지막까지 차이가 1이면 max_cnt를 확인하지 않으니, 끝에 패딩을 넣어준 것까지 비교한다.
+        if abs(room_arr[i][0] - room_arr[i + 1][0]) + abs(room_arr[i][1] - room_arr[i + 1][1]) == 1:
+            if cnt == 1:    # 시작점 표시
+                start = i
+            cnt += 1
+        else:
+            if max_cnt < cnt:   # 이동 횟수가 더 클 때
+                max_cnt = cnt
+                room = start
+            cnt = 1
+
+    print(f'#{tc} {room} {max_cnt}')
+```
+
+## 🔍 결과
+
+![image-20220317100209469](README.assets/image-20220317100209469.png)
