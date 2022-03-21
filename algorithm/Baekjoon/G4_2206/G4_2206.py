@@ -19,16 +19,11 @@ while queue and visited[n-1][m-1][1] == 2:
         nx = x + dx[i]
         if not(0 <= ny < n and 0 <= nx < m):
             continue
-        if arr[ny][nx] == 0:  
-            if visited[y][x][1] < visited[ny][nx][1]:
+        if arr[ny][nx] == 0 and visited[y][x][1] < visited[ny][nx][1]:
                 visited[ny][nx] = [visited[y][x][0] + 1, visited[y][x][1]]
                 queue.append((ny, nx))
-            elif visited[y][x][1] == visited[ny][nx][1]:
-                if visited[y][x][0] + 1 < visited[ny][nx][0]:
-                    visited[ny][nx] = [visited[y][x][0] + 1, visited[y][x][1]]
-                    queue.append((ny, nx))
         else:
-            if visited[y][x][1] == 0 and (visited[y][x][0] + 1 < visited[ny][nx][0]):
+            if visited[y][x][1] == 0 and visited[ny][nx][1] == 2:
                 visited[ny][nx] = [visited[y][x][0] + 1, 1]
                 queue.append((ny, nx))
 
