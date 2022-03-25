@@ -251,3 +251,11 @@ arr = list(map(int, input()))
 print(sum(arr))
 ```
 
+## 2741. N 찍기 [B3]
+
+```python
+n = int(input())
+for i in range(n):
+    print(i + 1)
+```
+
