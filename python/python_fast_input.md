@@ -1,4 +1,4 @@
-# [Alogorithm] input 속도 개선[Python]
+# [Python] input 속도 개선
 
 파이썬(python) 백준 문제를 풀면 입력이 많을 때 시간초과가 발생한다.
 
