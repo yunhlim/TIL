@@ -24,3 +24,4 @@ import sys
 string = sys.stdin.readline().rstrip()
 ```
 
+`split()`을 사용하거나 `int()`형변환을 사용하는 경우는 안해줘도 상관 없다!
