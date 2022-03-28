@@ -1,4 +1,4 @@
-# [Python] json 파일 및 momo 파일 불러오기
+# [Python] json 파일 및 txt 파일 불러오기
 
 ## json 파일
 
@@ -15,7 +15,7 @@ a_dict = json.load(a_json)	#=> 파이썬 자료형(딕셔너리나 리스트)으
 
 ---
 
-## momo 파일
+## txt 파일
 
 ```python
 import sys
@@ -24,4 +24,4 @@ sys.stdin = open("input.txt")
 
 `open()` 함수를 사용해 파일을 불러온다.
 
-알고리즘 문제를 풀 때 입력 memo 파일이 주어지는 경우, 이를 활용한다.[ex. SWEA]
+알고리즘 문제를 풀 때 입력 txt 파일이 주어지는 경우, 이를 활용한다. (ex. SWEA)
