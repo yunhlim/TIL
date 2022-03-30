@@ -17,18 +17,23 @@ def check(cur, prv):
 
     return False
 
+
 n, m = map(int, input().split())
-arr = list(map(int, input().split()))
+arr = [0] + list(map(int, input().split()))
 
 s, e = max(arr), sum(arr)
+for i in range(1, n + 1):   # 누적합
+    arr[i] += arr[i - 1]
+
 ans = 0
 while s <= e:
     visited = []
     mid = (s + e) // 2
-    if check(mid):
+    if check(0, 0):
         e = mid - 1
         ans = mid
         result = visited[:]
     else:
         s = mid + 1
 print(ans)
+print(*result)
