@@ -1,10 +1,12 @@
-# [Baekjoon] 24620. Drought [G4]
+# [USACO] 2022_Feb. Sleeping in Class [Bronze] [BOJ - 24620_G4]
 
 ## 📚 문제
 
-https://www.acmicpc.net/problem/24496
+https://www.acmicpc.net/problem/24620
 
 ---
+
+## 📖 풀이
 
 모든 수를 똑같이 만드는 것이 목표이다.
 
