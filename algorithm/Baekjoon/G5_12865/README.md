@@ -6,11 +6,13 @@ https://www.acmicpc.net/problem/12865
 
 ---
 
-모든 물건을 하나씩 추가하며 확인하는 재귀함수로 풀어본다.
+## 📖 백트래킹 풀이(시간 초과)
 
-생각만해도 풀어야할 가짓수가 너무 많다. 예상대로 시간초과가 뜬다..
+모든 물건을 하나씩 추가하며 확인하는 **조합**으로 풀어본다.
 
-## 📒 1차 재귀 코드
+풀어야할 가짓수가 너무 많다. O(n!)이니 `100!`이다.
+
+## 📒 백트래킹 코드(시간 초과)
 
 ```python
 N, K = input().split()    # 물품의 수(1<=N<=100), 버틸 수 있는 무게 K(1 ≤ K ≤ 100,000)
@@ -46,55 +48,15 @@ recur(0)
 print(value_max)
 ```
 
-속도를 높이기 위해 메모리 때매 string으로 썼던 거 전부 int로 변경해본다.. 그래도 시간초과 ... input readline() 써도 시간초과가 뜬다.
+## 🔍 백트래킹 결과(시간 초과)
 
-global 변수 제거 답은 똑같... 등장한 물품 표시하는 걸 리스트가 아닌 set로 사용해도 똑같다 😢
+![image-20220130011033742](README.assets/image-20220130011033742.png)
 
-속도를 더 높여본 재귀 코드는 다음과 같다.
-
----
-
-## 📒 2차 재귀 코드
-
-```python
-from sys import stdin
-N, K = list(map(int, stdin.readline().split()))    # 물품의 수(1<=N<=100), 버틸 수 있는 무게 K(1 ≤ K ≤ 100,000)
-lst_WV = [] # 무게와 가치를 튜플로 담는다.
-for i in range(N):  # 물건의 무게 W(1 ≤ W ≤ 100,000), 물건의 가치 V(0 ≤ V ≤ 1,000)
-    lst_WV.append(tuple(map(int, stdin.readline().split())))
-index_set = set() 
-
-
-def recur(cur, weight, value, value_max):
-    
-    if cur == N:
-        if value_max < value:
-            value_max = value
-        return value_max
-    for i in range(N):  
-        if (i not in index_set) and (weight + lst_WV[i][0]) <= K: 
-            weight += lst_WV[i][0]
-            value += lst_WV[i][1]
-            index_set.add(i)
-            value_max = recur(cur+1, weight, value, value_max)
-            weight -= lst_WV[i][0]
-            value -= lst_WV[i][1]
-            index_set.remove(i)
-
-    if value_max < value:
-        value_max = value
-    return value_max
-
-
-print(recur(0, 0, 0, 0))
-
-```
-
-## 🔍 실패한 결과
-
-![image-20220130011033742](G5_12865.assets/image-20220130011033742.png)
+ 예상대로 시간초과가 뜬다..
 
 ---
+
+## 📖 DP 바텀업 풀이
 
 재귀로는 시간초과를 해결할 수 없으니 중복된 계산을 줄여주는 동적 계획법으로 풀어 본다. 물건을 하나씩 넣으며 최상의 가치를 적는다. 표로 생각을 정리해본다.
 
@@ -113,7 +75,7 @@ print(recur(0, 0, 0, 0))
 >
 >현재 무게 대비 가치를 바꾸기 위해서는 이전 행에서 물건의 무게를 뺀 만큼의 가치 + 물건의 가치가 이전 행의 무게에서의 가치보다 크면 바꾼다. 위의 표를 보면 세번째 물건이 가방의 무게가 7일 때 13에서 14로 바꿔주었다. 이 때 이 물건이 들어왔을 때 가치가 늘어나는지 파악하기 위해 이전 행에서 가방의무게 - 물건의 무게인 무게가 4일 때의 가치가 8이었다. 8+물건의가치인 6을 더하면 14로 13보다 크니 바꾸어준다. 이를 반복한다.
 
-## 📒 동적 계획법으로 풀이한 코드
+## 📒 DP 바텀업 코드
 
 ```python
 N, K = map(int,input().split())    # 물품의 수(1<=N<=100), 버틸 수 있는 무게 K(1 ≤ K ≤ 100,000)
@@ -138,8 +100,50 @@ for i in range(1, N+1):    # 첫번째 물건부터 검색한다
 print(memo[N][K])
 ```
 
-## 🔍 결과
+## 🔍 DP 바텀업 결과
 
-![image-20220130012837608](G5_12865.assets/image-20220130012837608.png)
+![image-20220130012837608](README.assets/image-20220130012837608.png)
 
 배낭문제를 처음 접해보니 시간초과를 해결하기 어려웠다. 동적계획법으로 해결할 수 있는 대표적인 문제라 동적계획법부터 순차적으로 공부해가며 풀이했다. 새로운 알고리즘을 익혀나가는 재미가 있다.🧐🧐
+
+---
+
+## 📖 DP 탑다운 풀이
+
+DP를 처음 배우고 바텀업과 탑다운이라는 개념을 모르고 그냥 풀었었다. 
+
+DP 탑다운에 대해 배우고 탑다운으로 배낭문제를 새로 풀어본다.
+
+DP를 물건의 개수와 최대 무게마다의 최대가치를 적을 수 있게 2차원으로 초기화 한다. 이 때 확인했는지 구별하기 위해 -1로 초기화해준다.
+
+그리고 재귀를 들어갈 때 현재 확인한 물건의 개수와 무게를 담아주고, 그 때 값이 dp에 존재하면 값을 가져다가 쓰고 없으면 재귀로 탐색한다.
+
+이 때 물건을 고르지 않았을 때와 골랐을 때 중 큰 값을 넣어줘야 한다. 물건을 골랐을 때는 이전 cur에서 현재 무게에서 물건의 무게를 뺐을 때의 가치에 물건의 가치를 더해준다. 그리고 둘 중 최대값을 뽑아 리턴한다. 
+
+## 📒 DP 탑다운 코드
+
+```python
+def recur(cur, w):  # 현재 확인한 물건의 개수와 최대 무개가 입력, 최대 가치를 리턴
+    if cur < 0:     # cur이 -1이면 0 return
+        return 0
+
+    if dp[cur][w] != -1:        # dp에 값이 있는 경우 dp 값 return(메모이제이션)
+        return dp[cur][w]
+
+    if arr[cur][0] > w:         # 물건을 담지 못하는 경우
+        dp[cur][w] = recur(cur - 1, w)      # 이전 무게에서의 가치를 담는다.
+    else:   # 물건을 담을 수 있는 경우
+        # '이전 무게에서의 가치'와 '(이전 무게 - 물건의 무게)의 가치 + 물건의 가치' 중 더 큰 값을 담는다.
+        dp[cur][w] = max(recur(cur - 1, w), recur(cur - 1, w - arr[cur][0]) + arr[cur][1])
+    return dp[cur][w]           # 최대 가치를 출력
+
+
+n, k = map(int, input().split())
+arr = [list(map(int, input().split())) for _ in range(n)]
+dp = [[-1] * (k + 1) for _ in range(n)]     # 확인한 물건의 개수와 최대 무게에서의 최대 가치
+print(recur(n - 1, k))      # 물건의 개수가 n개이고 최대 무게가 k일 때, 최대 가치 출력
+```
+
+## 🔍 DP 탑다운 결과
+
+![image-20220404010327195](README.assets/image-20220404010327195.png)
