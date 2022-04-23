@@ -259,3 +259,11 @@ for i in range(n):
     print(i + 1)
 ```
 
+## 2742. 기찍 N [B3]
+
+```python
+n = int(input())
+for i in range(1, n + 1)[::-1]:
+    print(i)
+```
+
