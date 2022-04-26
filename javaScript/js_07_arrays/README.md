@@ -1,5 +1,7 @@
 # [JavaScript] 배열 (Arrays) [EP 07]
 
+
+
 ## 📌 배열의 정의와 특징
 
 배열은 참조 타입의 객체(Objects)
