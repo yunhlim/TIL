@@ -41,6 +41,22 @@ const newUsers = users.map(user => {
 console.log(newUsers)	// users 객체의 각각의 속성에 isAlive = true가 추가된다.
 ```
 
+### 주로 쓰이는 객체 : String, Date ..
+
+String은 EP 06에서 따로 다루었다.
+
+Date는 시간 객체를 받아와 사용할 수 있다.
+
+🔔 [Date 공식 문서](https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Date) 를 참고!!
+
+```javascript
+const now = new Date()			// Date 객체의 인스턴스 만들기
+// Date 객체의 메서드 사용
+const hour = now.getHours()		
+const minute = now.getMinutes()
+const second = now.getSeconds()
+```
+
 ---
 
 ## 🔍 메서드

@@ -16,6 +16,7 @@
 		// 위의 CDN import 를 통해 _ (underscore) 식별자 사용가능
 		_.sample([1, 2, 3, 4]) // 3 (random 1 element)
 		_.sampleSize([1, 2, 3, 4], 2) // [2, 3] (random 2 element)
+		_.random(1, 6)		// 2 (1 ~ 6 random으로 하나 고른다)
 
 		_.reverse([1, 2, 3, 4]) // [4, 3, 2, 1]
 
