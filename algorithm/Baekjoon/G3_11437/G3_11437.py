@@ -1,13 +1,6 @@
-# recursion error
 from collections import deque
 import sys
-sys.setrecursionlimit(100000)
 input = sys.stdin.readline
-
-def find_par(x, arr):
-    if par[x] != x:
-        arr.append(par[x])
-        find_par(par[x], arr)
 
 
 n = int(input())
@@ -33,17 +26,23 @@ while que:
 m = int(input())
 for i in range(m):
     a, b = map(int, input().split())
-    par_arr_a = [a]
-    par_arr_b = [b]
-    find_par(a, par_arr_a)
-    find_par(b, par_arr_b)
-    a_length = len(par_arr_a)
-    b_length = len(par_arr_b)
-    par_arr_a = par_arr_a[::-1]
-    par_arr_b = par_arr_b[::-1]
-    result = 1
-    for i in range(min(a_length, b_length)):
-        if par_arr_a[i] != par_arr_b[i]:
+    arr_a = [a]
+    arr_b = [b]
+    while True:
+        arr_a.append(par[a])
+        if par[a] == 1:
             break
-        result = par_arr_a[i]
+        a = par[a]
+    while True:
+        arr_b.append(par[b])
+        if par[b] == 1:
+            break
+        b = par[b]
+    arr_a = arr_a[::-1]
+    arr_b = arr_b[::-1]
+    result = 0
+    for i in range(min(len(arr_a), len(arr_b))):
+        if arr_a[i] != arr_b[i]:
+            break
+        result = arr_a[i]
     print(result)
