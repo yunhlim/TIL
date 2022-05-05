@@ -1,10 +1,10 @@
 # [Baekjoon] 1167. 트리의 지름 [G3]
 
-## 📚 문제
-
-https://www.acmicpc.net/problem/1167
+## 📚 문제 : [트리의 지름](https://www.acmicpc.net/problem/1167)
 
 ---
+
+## 📖 풀이
 
 전에 풀었던 1967. 트리의 지름 문제와 거의 유사하다.
 
@@ -20,13 +20,7 @@ https://www.acmicpc.net/problem/1167
 
 나머지 풀이는 다음을 참고한다.
 
-
-
-### 📌 1967. 트리의 지름 블로그 포스팅 참고
-
-https://velog.io/@yunhlim/Baekjoon-1967.-%ED%8A%B8%EB%A6%AC%EC%9D%98-%EC%A7%80%EB%A6%84-G4
-
-
+### 📌 [1967. 트리의 지름 블로그 포스팅 참고](https://velog.io/@yunhlim/Baekjoon-1967.-%ED%8A%B8%EB%A6%AC%EC%9D%98-%EC%A7%80%EB%A6%84-G4)
 
 ## 📒 코드
 
@@ -72,3 +66,66 @@ print(total_max)
 ## 🔍 결과
 
 ![image-20220318001323019](README.assets/image-20220318001323019.png)
+
+---
+
+## 📖 트리의 지름 유형 정석 풀이
+
+트리의 지름을 구하는 정석적인 풀이법은 다음과 같다.
+
+>1. 임의의 노드에서 가장 먼 노드를 찾는다.
+>
+>2. 그 노드에서 가장 먼 노드까지의 거리가 트리의 지름이다.
+
+임의의 노드를 노드 1로 잡고, 노드에서 가장 거리가 먼 노드를 찾는다.
+
+위에서 구한 노드에서 가장 먼 거리의 노드까지의 거리를 출력하면 된다.
+
+dfs로 노드에서 가장 먼 노드까지의 거리를 찾는다.
+
+가장 먼 거리를 변수로 두고, dfs로 탐색하며 거리와 비교하며 업데이트한다.
+
+더 먼 거리가 나와 업데이트 할 때마다, 그 때의 노드도 기억해야 한다.
+
+## 📒 코드
+
+```python
+def longest(node):  # 입력된 노드를 기준으로 가장 먼 거리와 그 때의 노드를 출력
+    global visited, max_dist, find_node
+    visited = [0 for _ in range(n + 1)]
+    max_dist = 0
+    find_node = 0
+    dfs(node, 0)
+    return max_dist, find_node
+
+
+def dfs(x, dist):
+    global find_node, max_dist    # 함수 바깥에서의 변수를 바인딩
+    visited[x] = 1
+    if max_dist < dist:             # 거리가 멀면
+        max_dist = dist             # 최대 거리로 업데이트하고
+        find_node = x               # 그 때의 노드도 업데이트
+    for c, w in graph[x]:
+        if visited[c]:              # 방문한 값인지 확인
+            continue
+        dfs(c, dist + w)
+
+
+n = int(input())
+graph = [[] for _ in range(n + 1)]
+for i in range(n):
+    temp = list(map(int, input().split()))
+    s = temp[0]
+    for i in range(1, len(temp) - 1, 2):
+        graph[s].append([temp[i], temp[i + 1]])
+
+visited = [0 for _ in range(n + 1)]
+max_dist, find_node = 0, 0
+d, node = longest(1)        # 1에서 가장 먼 노드를 찾는다.
+d, node = longest(node)     # 위에서 찾은 노드 기준 가장 먼 노드까지의 거리를 찾는다.
+print(d)                    # 위에서 구한 가장 먼 거리를 출력
+```
+
+## 🔍 결과
+
+![image-20220505224123074](README.assets/image-20220505224123074.png)
