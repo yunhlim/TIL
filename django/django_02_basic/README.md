@@ -34,23 +34,85 @@ from articles import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),		# 기본 제공 admin
-    path('index/', views.???),				# 새로 만들 URL
+    path('index/', views.index, name='index'),				# 새로 만들 URL
 ]
 ```
 
 - view를 import해서 가져와야한다.
+
 - path 함수 사용
   - URL과 path함수가 일치하면 view 함수가 호출된다.
   - 접속할 땐 `/`를 끝에 안붙여도 되지만 입력할 땐 URL에 `/`를 무조건 붙여줘야 한다.
   - 함수를 호출할 땐 ()가 없다. path에서 콜백함수로 지정해서 사용한다.
 
+- naming url patterns
+
+  - templates에서 url 태그를 사용해서 path() 함수에 작성한 name을 사용할 수 있다.
+  - `<a href="{% url '뷰함수이름' %}"></a>`
+
 - admin 페이지가 기본적으로 제공되어 있다.
   - 주소로 들어가서 admin을 뒤에 붙여주고 enter를 누르면 로그인 페이지가 등장한다.
+
   - http://127.0.0.1:8000/admin/ 으로 요청
 
-![image-20220302122326189](README.assets/image-20220302122326189.png)
+    ![image-20220302122326189](README.assets/image-20220302122326189.png)
 
-ex). 클라이언트 : Chrome 브라우저, 서버 : Django
+
+
+###  Variable Routing
+
+- URL 주소를 변수로 사용하는 것
+
+- URL의 일부를 변수로 지정하여 view 함수의 인자로 넘길 수 있음
+
+- str, int 많이 사용(str은 생략 가능하다.)
+
+- url 경로에 넣어주는 경우 views.py에서 인자로 받을 수 있다.
+
+  ```python
+  path('dinner/<menu>/<int:number>/', views.dinner),  
+  ```
+
+
+
+### App URL mapping
+
+app의 view함수가 많아지면 path()가 많아지니 각 app에 url을 작성한다.
+
+- 프로젝트 urls.py
+
+  - include() : 다른 urls.py를 참조할 수 있도록 도움.
+
+  ```python
+  from django.contrib import admin
+  from django.urls import path, include
+  # 각 앱의 urls.py로 연결시킬 경우 include를 import하여 사용
+  urlpatterns = [
+      path('admin/', admin.site.urls),
+      path('<app명>/', include('<app명>.urls'), name='<app명>'),
+  ]
+  ```
+
+- 각 앱에 url.py 생성
+
+  ```python
+  from django.urls import path
+  from . import views
+  
+  app_name = '앱이름'
+  urlpatterns = [
+    path('경로/', views.뷰함수이름, name='뷰함수이름'),
+    # Variable Routing  
+    path('<int:pk>/', views.create, name='create'),
+    path('dinner/<menu>/<int:number>/', views.dinner),  
+  ]
+  ```
+
+- templates에서 Django Template Tag 중 하나인 url 태그를 사용해 path() 함수에 작성한 name을 사용
+
+  ```django
+  <a href="{% url '앱이름:뷰함수이름' %}"></a>
+  ```
 
 ---
 
@@ -85,6 +147,56 @@ def greeting(request):
         'name' : 'Alice',
     }
     return render(request, 'greeting.html', context)
+```
+
+
+
+### 각각의 템플릿에 렌더링
+
+- render에서 html로 연결해줄 때 이름공간을 활용해 정의해 준 app 폴더명과 and slash를 앞에 적어준다.
+
+```python
+def <template 명>(request):
+    context = {
+        'foods': foods,
+        'info': info,
+    }
+    return render(request, '<app 명>/<template 명>.html', context) # app폴더를 안에 넣어줬을 경우 app 명을 앞에 붙이고 and /
+```
+
+
+
+### variable routing
+
+- url에서 값을 받아오는 경우
+
+```python
+def dinner(request, menu, number):
+    context = {
+        'menu': menu,
+        'number': number,
+    }
+    return render(request, 'dinner.html', context)
+```
+
+
+
+### redirect 
+
+- 다른 템플릿으로 렌더링하는 경우
+
+```python
+from django.shortcuts import redirect, render
+
+def create(request):
+    title = request.POST.get('title')
+    content = request.POST.get('content')
+
+    article = Article(title=title, content=content)		# model에서 배운다!!
+    article.save()
+
+    return redirect('articles:index')
+    # return redirect('articles:detail', article.pk) # variable routing이 있는 url로 이동하는 경우
 ```
 
 ---
@@ -158,17 +270,26 @@ def greeting(request):
 
 3. `{% Tag %}`
    - 출력 텍스트를 만들거나, 반복 또는 논리를 수행하여 제어 흐름을 만드는 등, 변수보다 복잡한 일들을 수행
+   
    - 일부 태그는 시작과 종료 태그가 필요
-
-```django
-  <p>메뉴판</p>
-  <ul>
-    {% for food in foods %}
-      <li>{{ food }}</li>
-    {% endfor %}
-  </ul>
-```
-
+   
+     ```django
+       <p>메뉴판</p>
+       <ul>
+         {% for food in foods %}
+           <li>{{ food }}</li>
+         {% endfor %}
+       </ul>
+     ```
+   
+   - 다른 url로 연결할 때에 url 태그를 사용한다.
+   
+   - `,`로 url과 값을 함께 적는다. (variable routing)
+   
+     ```django
+     <a href="{% url 'articles:detail' article.pk %}">DETAIL</a>
+     ```
+   
 4. 주석 처리
 
 ```django
@@ -182,6 +303,32 @@ def greeting(request):
   
   {# ctrl /로 여러 줄 처리한다 #}
 ```
+
+
+
+### form
+
+- action에 연결할 url을 지정해준다. 위처럼 사용
+- method에는 POST와 GET이 있는데 값을 바꿀 땐 POST, 조회할 땐 GET을 사용한다.
+- POST를 사용할 땐 난수 발생시키는 csrf_token 태그를 항상 붙인다.
+
+```django
+<form action="{% url 'articles:create' %}" method="POST">
+    {% csrf_token %}
+```
+
+- label의 for과 input의 name을 항상 일치시킨다.
+- 긴 줄 입력을 받을 땐 input 대신 textarea
+
+
+
+### 이름공간(namespace)
+
+여러 앱의 templete의 이름이 겹치는 경우 settings.py -> INSTALLED_APPS에 적힌 순서대로 렌더링 된다.
+
+각 app의 template에 그 app의 이름의 폴더를 만들어 거기에 넣어준다!! 그럼 경로를 다르게 지정할 수 있다.
+
+views.py의 함수들의 render함수에서 "app명/html"으로 넣어주기만 하면된다.
 
 ---
 

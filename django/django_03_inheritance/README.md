@@ -78,7 +78,63 @@
   {% endblock content %}
   ```
 
+
+
+
+### Bootstrap5
+
+- Bootstrap5를 설치
+
+  > pip install django-bootstrap-v5
+  > pip freeze > requirements.txt
+  > 앱 등록 'bootstrap5'
+  > 템플릿에 {% load bootstrap5 %} 로 사용
+
+- base.html
+
+  ```django
+  <!DOCTYPE html>
+  {% load bootstrap5 %}
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% bootstrap_css %}
+  </head>
+  <body>
+    <div class="container">
+      {% block content %}
+      {% endblock content %}
+    </div>
+    {% bootstrap_javascript %}
+  </body>
+  </html>
+  ```
+
+- templates
+
+  후에 form을 배우고 나머지 태그들을 이해한다! bootstrap5를 태그를 사용해 간단히 사용한다는 것만 알고 넘어간다.
+
+  ```django
+  {% extends 'base.html' %}
+  {% load bootstrap5 %}
   
+  {% block content %}
+    <h1>CREATE</h1>
+    <hr>
+    <form action="{% url 'articles:create' %}" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      <input type="submit" value="CREATE">
+    </form>
+    <hr>
+    <a href="{% url 'articles:index' %}">BACK</a>
+  {% endblock content %}
+  ```
+
+---
 
 > 장고 설계 철학
 >
