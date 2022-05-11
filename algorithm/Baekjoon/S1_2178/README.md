@@ -1,3 +1,18 @@
+# [Baekjoon] 2178. 미로 탐색 [S1]
+
+## 📚 문제 : [미로 탐색](https://www.acmicpc.net/problem/2178)
+
+## 📖 풀이
+
+최소의 칸 수로 도착하는 경우를 구해야하니 BFS로 구한다.
+
+움직일 때마다 초기위치에서 넓혀나가는 칸 수를 세야하니, BFS에서 큐의 size를 잰 후 size의 크기만큼 pop하면서 depth를 세 준다.
+
+마지막 구간에 도착했을 때 depth를 출력한다.
+
+## 📒 코드
+
+```python
 from collections import deque
 
 def in_range(x, y):
@@ -26,3 +41,8 @@ while que:
                 visited[nx][ny] = 1
                 que.append([nx, ny])
     cnt += 1
+```
+
+## 🔍 결과
+
+![image-20220512004941859](README.assets/image-20220512004941859.png)
