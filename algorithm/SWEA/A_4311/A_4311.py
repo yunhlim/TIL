@@ -1,5 +1,4 @@
-def one_calc(num, num2, oper):
-    num = 0
+def calc(num, num2, oper):      # 하나의 연산자를 이용한 계산 하나
     if oper == 11:      # 덧셈
         num += num2
     elif oper == 12:    # 뺄셈
@@ -7,43 +6,26 @@ def one_calc(num, num2, oper):
     elif oper == 13:    # 곱셈
         num *= num2
     else:               # 나눗셈
+        if num2 == 0:   # 나눌 수 없는 경우
+            return -1
         num //= num2
     return num
 
 
-def many_calc(f):
-    result = 0
-    oper = 0
-    num = 0
-    for btn in f:
-        if btn > 10:  # 연산자인 경우
-            if oper > 0:        # 연산자가 2번 나온 경우부터 계산
-                result = one_calc(result, num, oper)
-            num = 0
-            oper = btn
-        if btn < 10:    # 숫자인 경우
-            num = num * 10 + btn
-    if oper > 0:
-        result = one_calc
-
-    if 0 <= result < 999:
-        return result
-    else:
-        return -1       # 잘못된 경우
+def recur(cur, x):     # 숫자버튼으로 만들 수 있는 수(세 자리 이하)
+    if cur == 3:
+        return
+    for num in nums:
+        visited[x * 10 + num] = cur + 1
+        recur(cur + 1, x * 10 + num)
 
 
-# t = int(input())
-# for tc in range(1, t + 1):
-#     n, o, m = map(int, input().split())     # n: 터치가능한 숫자들의 개수, o: 터치가능한 연산자들의 개수, m: 최대 터치 횟수
-#     nums = list(map(int, input().split()))
-#     opers = list(map(lambda x: int(x) + 10, input().split())) # +는 1, -는 2, *은 3, /는 4
-#     w = int(input())
-#     dp = [[] for _ in range(m)]
-
-#     for num in nums:        # 한 번 누른 경우 담기(숫자들만)
-#         dp[0].append(num)
-
-#     for i in range(1, m):
-#         for j in dp[i-1]:
-
-print(calc([10,11,2]))
+t = int(input())
+for tc in range(1, t + 1):
+    n, o, m = map(int, input().split())     # n: 터치가능한 숫자들의 개수, o: 터치가능한 연산자들의 개수, m: 최대 터치 횟수
+    nums = list(map(int, input().split()))      # 사용 가능한 숫자들 0 ~ 9
+    opers = list(map(lambda x: int(x) + 10, input().split())) # 사용 가능한 연산자들 +는 11, -는 12, *은 13, /는 14
+    w = int(input())        # 원하는 출력 값
+    visited = [0 for _ in range(1000)]
+    recur(3, 0)
+    print(f'#{tc} {recur(0)}')
