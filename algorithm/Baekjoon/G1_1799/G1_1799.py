@@ -53,6 +53,7 @@ max_cnt = 0
 recur(0, 0, 0)
 print(max_cnt)
 
+# 해결방안 참고
 # def DFS(w):
 #     ch[w] = 1
 #     for m in G[w]:
