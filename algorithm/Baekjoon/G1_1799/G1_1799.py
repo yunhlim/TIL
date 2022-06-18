@@ -1,84 +1,49 @@
-def move(x, y):     # 다음 위치로 이동
-    if x == 0 or y == n - 1:      # 현재 대각선을 다 확인한 경우 다음 대각선으로 이동
-        return next_row(x, y)
-    else:           # 오른쪽 위로 이동
-        return x - 1, y + 1
+def in_range(x, y):     # 체스판 범위 안인지 확인
+    return 0 <= x < n and 0 <= y < n
 
 
-def next_row(x, y):     # 다음 대각선으로 이동
-    if x + y == 2 * (n - 1):
-        return 0        # 끝
-    if x + y + 1 >= n:      # x + y가 n보다 크거나 같은 경우
-        return n - 1, x + y - n + 2
-    return x + y + 1, 0
+def check(x, y):        # 대각선에 비숍있는지 체크
+    for i in range(2):      # 왼쪽 위, 오른쪽 위 대각선 체크
+        nx = x + dx[i]
+        ny = y + dy[i]
+        while in_range(nx, ny):    # 체스판 범위 안인 경우
+            if visited[nx][ny]:     # 대각선에 비숍이 놓여 있는 경우 False
+                return False
+            nx += dx[i]
+            ny += dy[i]
+    return True             # 대각선에 비숍이 없는 경우 True
 
 
-def recur(x, y, cnt):
-    global max_cnt
-    # 가지치기
-    if 2 * n - 1 - (x + y) + cnt <= max_cnt:     # 앞으로 비숍으로 다 채워도 현재 구한 최대값보다 작거나 같은 경우
+def recur(x, y, cnt):   # 2칸씩 건너띄며 확인
+    color = (x + y) % 2     # 현재 칸의 색
+    if not in_range(x, y):       # 다 확인한 경우
+        result[color] = max(result[color], cnt)      # 최댓값 갱신
         return
-    while not arr[x][y] or visited[x-min(x, y)][y-min(x, y)]:
-        nxt_x_y = move(x, y)
-        if nxt_x_y:
-            x, y = nxt_x_y
-        else:       # 놓을 수 있는 자리를 다 확인한 경우
-            max_cnt = max(max_cnt, cnt)
-            return
-
-    # 비숍을 놓으면 오른쪽 아래 대각선에 위치한 곳에 놓지 못하도록 설정
-    nxt_x_y = next_row(x, y)
-    if nxt_x_y:
-        visited[x-min(x, y)][y-min(x, y)] = 1
-        recur(nxt_x_y[0], nxt_x_y[1], cnt + 1)        # 비숍을 놓는 경우 다음 대각선으로 이동
-        visited[x-min(x, y)][y-min(x, y)] = 0
-    else:       # 놓을 수 있는 자리를 다 확인한 경우
-        max_cnt = max(max_cnt, cnt + 1)     # 비숍을 놓은 상태로 확인
+    if (n * n - 1 - (x * n + y)) // 2 + 1 + cnt <= result[color]:   # 남은 칸에 다 비숍을 놔도 최대값을 바꾸지 못하는 경우
         return
-    
-    # 비숍을 놓지 않는 경우
-    nxt_x_y = move(x, y)
-    if nxt_x_y:
-        x, y = nxt_x_y
-    else:       # 놓을 수 있는 자리를 다 확인한 경우
-        max_cnt = max(max_cnt, cnt)
-        return    
-    recur(x, y, cnt)    # 비숍을 놓지 않는 경우
-    
+
+    # 다음 같은 색의 좌표 값 구하기
+    ny = y + 2
+    nx = x + ny // n
+    if ny >= n:      # 다음 행으로 이동
+        if n % 2:       # 체스판의 크기 n이 홀수인 경우
+            ny %= n
+        else:           # 체스판의 크기 n이 짝수인 경우
+            ny = 0 if ny % 2 else 1
+
+    if arr[x][y] and check(x, y):   # 비숍을 놓을 수 있을 때
+        visited[x][y] = 1
+        recur(nx, ny, cnt + 1)
+        visited[x][y] = 0
+    recur(nx, ny, cnt)              # 비숍을 놓지 않을 때
+
 
 n = int(input())
-arr = [list(map(int, input().split())) for _ in range(n)]
+arr = [list(map(int, input().split())) for _ in range(n)]       # 비숍을 놓을 수 있는 칸이 입력으로 주어진다.
+
 visited = [[0] * n for _ in range(n)]
-max_cnt = 0
-recur(0, 0, 0)
-print(max_cnt)
-
-# 해결방안 참고
-# def DFS(w):
-#     ch[w] = 1
-#     for m in G[w]:
-#         if bang[m] == 0:
-#             bang[m] = w
-#             return True
-#         elif ch[bang[m]] == 0 and DFS(bang[m]):
-#             bang[m] = w
-#             return True
-#     return False
-# N = int(input())
-# gra = [list(map(int, input().split())) for _ in range(N)]
-
-# G = [[] for _ in range(2*N)]
-
-# for i in range(N):
-#     for j in range(N):
-#         if gra[i][j] == 1:
-#             G[j-i+N].append(i+j+1)
-
-
-# res = 0
-# bang = [0]*(2*N)
-# for i in range(1, 2*N):
-#     ch = [0]*(2*N)
-#     if DFS(i):
-#         res += 1
-# print(res)
+dx, dy = [-1, -1], [-1, 1]  # 왼쪽 위, 오른쪽 위
+result = [0, 0]     # 칸이 흰색인 경우와 검정인 경우 나눠서 구한다.
+recur(0, 0, 0)      # 칸이 검정인 경우
+recur(0, 1, 0)      # 칸이 흰색인 경우
+print(sum(result))      # 칸이 흰색 검정인 경우의 값을 더한다.
