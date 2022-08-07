@@ -1,4 +1,4 @@
-# [Programmers] 두 큐 합 같게 만들기 [Lv 2]
+# [Programmers] Lv 2. 두 큐 합 같게 만들기 [2022 KAKAO TECH INTERNSHIP]
 
 ## 📚 문제 : [두 큐 합 같게 만들기](https://school.programmers.co.kr/learn/courses/30/lessons/118667)
 

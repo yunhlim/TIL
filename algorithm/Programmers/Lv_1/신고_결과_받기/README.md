@@ -1,4 +1,4 @@
-# [Programmers] 신고 결과 받기 [Lv 1]
+# [Programmers] Lv 1. 신고 결과 받기 [2022 KAKAO BLIND RECRUITMENT]
 
 ## 📚 문제 : [신고 결과 받기](https://school.programmers.co.kr/learn/courses/30/lessons/92334)
 
