@@ -1,5 +1,4 @@
 def recur(x, y, size):
-    print(x, y)
     start = arr[x][y]
     same = True
     for i in range(x, x + size):
