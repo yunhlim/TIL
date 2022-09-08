@@ -1,4 +1,4 @@
-# [Programmers] 성격 유형 검사하기 [Lv. 1]
+# [Programmers] Lv 1. 성격 유형 검사하기 [2022 KAKAO TECH INTERNSHIP]
 
 ## 📚 문제 : [성격 유형 검사하기](https://school.programmers.co.kr/learn/courses/30/lessons/118666)
 
