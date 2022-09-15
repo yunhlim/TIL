@@ -25,3 +25,12 @@ def solution(s):
     return int(s)
 ```
 
+딕셔너리를 활용해 좀 더 간단하게 만들어준다.
+```python
+# 딕셔너리 활용
+def solution(s):
+    numbers = {'zero': '0', 'one': '1', 'two': '2', 'three': '3', 'four': '4', 'five': '5', 'six': '6', 'seven': '7', 'eight': '8', 'nine': '9'}
+    for key in numbers:
+        s = s.replace(key, numbers[key])
+    return int(s)
+```
