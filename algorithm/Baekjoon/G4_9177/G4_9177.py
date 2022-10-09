@@ -1,4 +1,5 @@
 # 단어 섞기
+# 딕셔너리 DP
 def dfs(cur, idx1, idx2):
     if cur == len(result):
         return True
@@ -26,11 +27,12 @@ for tc in range(1, n + 1):
     dp = {}
     print(f"Data set {tc}:", 'yes' if dfs(0, 0, 0) else 'no')
 
-# 딕셔너리 DP
+# 탑다운 DP
 # def dfs(cur, idx1, idx2):
 #     if cur == len(result):
 #         return True
 
+#     # 확인했던 값 들어온 경우
 #     if dp[idx1][idx2] != -1:
 #         return dp[idx1][idx2]
 
